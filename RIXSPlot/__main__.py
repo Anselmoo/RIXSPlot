@@ -68,7 +68,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_Form):
 			self.check['pathway'] = os.path.dirname(str(filenames[0]))
 			# not sure if needed
 			# filename = filenames[0].split('.')
-			if 'el_inel' in filenames[0]:
+			if 'el_inel' in filenames[0]:  # Readon ORCA-RIXS-Files
 				try:
 					with open(filenames[0], 'r') as f:
 						self.check['data'] = np.genfromtxt(f, dtype=float)
@@ -88,10 +88,11 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_Form):
 					msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
 					msg.buttonClicked.connect(msgbtn)"""
 					pass
-			elif '.mat' in filenames[0]:
+			elif '.mat' in filenames[0]:  # Reading CTM4XAS-Files
 				try:
 					with open(filenames[0], 'r') as f:
 						data = loadmat(f)
+						# Transforming the Matlab-Matrices into an xyz-shape as 2D-Arrays with three columns
 						try:
 							xx, yy, zz = np.nan_to_num(data['XX']), np.nan_to_num(data['YY']), np.nan_to_num(
 								data['MDfci'])
@@ -152,10 +153,10 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 
 	# init figure and canvas
 	def plot_contour(self):
-		try:  # close previous test if open
-			plt.close(1)
-		except Exception:
-			pass
+		#try:  # close previous test if open
+		plt.close(1)
+		#except:# Exception:
+		#	pass
 		self.fig = plt.figure(1, figsize=(6, 6))
 		# init nav toolbar
 		self.canvas = FigureCanvas(self.fig)
@@ -163,17 +164,19 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		# Add plot button
 		# discards the old graph
 		# plot data
-		self.ax1 = plt.subplot(221)
-		self.ax2 = plt.subplot(223)
-		self.ax3 = plt.subplot(122)
+		self.ax1 = plt.subplot(221)  # XES-Plot
+		self.ax2 = plt.subplot(223)  # XAS-Plot
+		self.ax3 = plt.subplot(122)  # RIXS-Plot
 		self.ax2.set_xlabel('Incident Energy (eV)')
 		self.ax3.set_xlabel('Incident Energy (eV)')
+		# Seperating between XES and Energyloss
 		if self.mode == 0:
 			self.ax1.set_xlabel('Emission Energy (eV)')
 			self.ax3.set_ylabel('Emission Energy (eV)')
 		else:
 			self.ax1.set_xlabel('Energy Transfer (eV)')
 			self.ax3.set_ylabel('Energy Transfer (eV)')
+		# Setting up the RIXS-Map with optional contour-plot
 		if self.cont_t:
 			if self.cont_n != 0:
 				self.cont = self.ax3.contour(self.x, self.y, self.amp, self.cont_n, cmap=plt.get_cmap(self.style))
@@ -197,19 +200,16 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 				                          interpolation='bilinear', origin='lower')
 				self.im.set_norm(
 					norm.MyNormalize(vmin=self.amp.min(), vmax=self.amp.max(), stretch=self.stretch, clip=True))
-		# self.cbar = self.fig.colorbar(self.cont,format='%05.3f')
 
-		# catch error if deviding by zero for normalization
+		# catch error if dividing by zero for normalization
 		# But not working
 		try:
 			self.fig.canvas.mpl_connect('button_press_event', self.onpick)
 			self.fig.canvas.mpl_connect('button_press_event', self.zoompick)
 		except (RuntimeError, TypeError, NameError):
 			pass
-		# Dynamic CBar
-		# self.press = None
-		# self.cycle = sorted([i for i in dir(plt.cm) if hasattr(getattr(plt.cm,i),'N')])
-		# self.index = self.cycle.index(self.cbar.get_cmap().name)
+
+		# Making the realtime plots in the plots as filling-plot
 		self.fig.canvas.mpl_connect('motion_notify_event', self.onmotion)
 		self.ax1init = self.ax1.fill_between(self.y, np.zeros(len(self.x)), color='#FF6666', alpha=0.5, lw=1)
 		self.ax2init = self.ax2.fill_between(self.x, np.zeros(len(self.y)), color='#FF6666', alpha=0.5, lw=1)
@@ -222,13 +222,11 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		layout.addWidget(self.canvas)
 		self.setLayout(layout)
 
-	# self.connect()
-	# scalling cbar is not working
-	# print self.value
-	def save_fig_Plane(self, event):
+	def save_fig_Plane(self):  # Saving plot
 		"""Save RIXS-Plane as png"""
 		newpath = r'/Figures_' + self.filename
-		if not os.path.exists(self.pathway + newpath): os.makedirs(self.pathway + newpath)
+		if not os.path.exists(self.pathway + newpath):
+			os.makedirs(self.pathway + newpath)
 		os.chdir(self.pathway + newpath)
 		self.fig.savefig(self.pathway + newpath + '/RIXS_Plane_' + self.filename + '.png', dpi=300)
 		os.chdir('..')
@@ -241,7 +239,7 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		os.chdir('..')
 	"""
 
-	def clean_subplots(self, event):
+	def clean_subplots(self):
 		"""Clears the subplots."""
 		for j in [self.ax1, self.ax2, self.ax3]:
 			j.lines = []
@@ -268,6 +266,12 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.fig.canvas.draw()
 
 	def zoompick(self, event):
+		"""
+		Generating vice versa cuts
+		--------------------------
+		Press in the XAS-Plot generting the XES-Plot for a given XAS-energy
+		Press in the XES-Plot generting the XAS-Plot for a given XES-energy
+		"""
 		if event.inaxes != self.ax1 and event.inaxes != self.ax2:
 			return
 		elif event.inaxes == self.ax1 and event.button == 1:
@@ -514,7 +518,7 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		perc = 0.01
 		if event.button == 1 and dy != 0 and dx != 0:
 			self.cbar.norm.vmin -= (perc * scale) * np.sign(dy) - 0.001
-			self.cbar.norm.vmax += (perc * scale) * np.sign(dy) + 0.001  # Maybe Signume error before!
+			self.cbar.norm.vmax += (perc * scale) * np.sign(dy) + 0.001
 		elif event.button == 3 and dy != 0 and dx != 0:
 			self.cbar.norm.vmin -= (perc * scale) * np.sign(dy) - 0.001
 			self.cbar.norm.vmax += (perc * scale) * np.sign(dy) + 0.001
