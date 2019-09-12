@@ -24,7 +24,6 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_Form):
 		self.setupUi(self)
 		self.RIXSPlot.clicked.connect(self.handleButton)
 		self.openFILE.clicked.connect(self.getfiles)
-		"""Test"""
 		self.pathway = os.path.abspath("./")
 		self.check = {'file': False, 'type': 'RIXS', 'data': np.zeros((3, 3)), 'filename': '.', 'pathway': self.pathway,
 		              'mode': 0, 'cbar': 'linear', 'cont_n': 0, 'cont': False, 'syle': 'jet', 'aver_x': 0, 'aver_y': 0,
@@ -33,7 +32,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_Form):
 
 	def handleButton(self):
 		if self.check['file']:
-			""" Reading all intial inputs"""
+			""" Reading all intial inputs """
 			self.check['grid'] = int(self.gridPOINTS.value())
 			self.check['mode'] = int(self.kindRIXS.currentIndex())
 			self.check['filename'] = str(self.fileNAME.text())
@@ -282,7 +281,8 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 			c, = self.ax2.plot(CUT_XAS[0], CUT_XAS[2], label=label)
 			self.ax3.axhline(self.y[ypos], color=c.get_color(), lw=1.25, alpha=0.75)
 			newpath = r'/XAS_CUTs_' + self.filename  # +'_'+self.mode
-			if not os.path.exists(self.pathway + newpath): os.makedirs(self.pathway + newpath)
+			if not os.path.exists(self.pathway + newpath):
+				os.makedirs(self.pathway + newpath)
 			os.chdir(self.pathway + newpath)
 			np.savetxt(self.pathway + newpath + '/XAS_Cut_at_' + label + '.txt', CUT_XAS.T, delimiter='\t',
 			           newline='\n', header='En\tnorm.Int\tInt', fmt="%.4f")
@@ -370,7 +370,8 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 				c, = self.ax2.plot(CUT_XAS[0], CUT_XAS[2], label=label)
 				self.ax3.axhline(self.y[ypos], color=c.get_color(), lw=1.25, alpha=0.75)
 				newpath = r'/XAS_CUTs_' + self.filename  # +'_'+self.mode
-				if not os.path.exists(self.pathway + newpath): os.makedirs(self.pathway + newpath)
+				if not os.path.exists(self.pathway + newpath):
+					os.makedirs(self.pathway + newpath)
 				os.chdir(self.pathway + newpath)
 				np.savetxt(self.pathway + newpath + '/XAS_Cut_at_' + label + '.txt', CUT_XAS.T, delimiter='\t',
 				           newline='\n', header='Energy\tnormInt\tInt', fmt="%.4f")
@@ -417,7 +418,8 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		"""
 		Data will be stored depending if you are in the RIXS-MAP-, XAS- or XES-Plot
 		"""
-		if event.inaxes != self.cbar.ax: return
+		if event.inaxes != self.cbar.ax:
+			return
 		self.press = event.x, event.y
 
 	def key_press(self, event):
