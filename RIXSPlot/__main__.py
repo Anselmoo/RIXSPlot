@@ -248,7 +248,8 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 	def show_legend(self, event):
 		"""Shows legend for the plots"""
 		for pl in [self.ax1, self.ax2]:
-			if len(pl.lines) > 0:
+			if pl.lines:  # Change to non-lengths-comparision
+			#if len(pl.lines) > 0:
 				pl.legend()
 		self.fig.canvas.draw()
 
