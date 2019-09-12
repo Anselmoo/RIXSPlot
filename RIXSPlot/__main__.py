@@ -3,6 +3,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
 import os
+import sys
 import matplotlib.pylab as plt
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
@@ -78,15 +79,6 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_Form):
 
 				except ValueError:
 					# Error Handling is not working proper
-					"""msg = QMessageBox()
-					msg.setIcon(QMessageB
-
-					msg.setText("This is a message box")
-					msg.setInformativeText("This is additional information")
-					msg.setWindowTitle("MessageBox demo")
-					msg.setDetailedText("The details are as follows:")
-					msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-					msg.buttonClicked.connect(msgbtn)"""
 					pass
 			elif '.mat' in filenames[0]:  # Reading CTM4XAS-Files
 				try:
@@ -223,7 +215,9 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.setLayout(layout)
 
 	def save_fig_Plane(self):  # Saving plot
-		"""Save RIXS-Plane as png"""
+		"""
+		Save RIXS-Plane as png
+		"""
 		newpath = r'/Figures_' + self.filename
 		if not os.path.exists(self.pathway + newpath):
 			os.makedirs(self.pathway + newpath)
@@ -231,13 +225,6 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.fig.savefig(self.pathway + newpath + '/RIXS_Plane_' + self.filename + '.png', dpi=300)
 		os.chdir('..')
 
-	"""def save_fig_CUTs(self,event):
-		newpath = r'/Figures_'+self.filename
-		if not os.path.exists(self.pathway+newpath): os.makedirs(self.pathway+newpath)
-		os.chdir(self.pathway+newpath)
-		self.fig.savefig(self.pathway+newpath+'/RIXS_CUTs_'+self.filename+'.png', dpi=300)   # save the figure to file
-		os.chdir('..')
-	"""
 
 	def clean_subplots(self):
 		"""Clears the subplots."""
@@ -412,7 +399,9 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		return norm
 
 	def connect(self):
-		"""connect to all the events we need for the colorbar"""
+		"""
+		Connecting to all the events for the right colorbar-scheme
+		"""
 		self.cidpress = self.cbar.patch.figure.canvas.mpl_connect(
 			'button_press_event', self.on_press)
 		self.cidrelease = self.cbar.patch.figure.canvas.mpl_connect(
@@ -421,10 +410,12 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 			'motion_notify_event', self.on_motion)
 		self.keypress = self.cbar.patch.figure.canvas.mpl_connect(
 			'key_press_event', self.key_press)
-		"""Here the functions for real time cut are working"""
+
 
 	def on_press(self, event):
-		"""Data will be stored depending if you are in the RIXS-MAP-, XAS- or XES-Plot"""
+		"""
+		Data will be stored depending if you are in the RIXS-MAP-, XAS- or XES-Plot
+		"""
 		if event.inaxes != self.cbar.ax: return
 		self.press = event.x, event.y
 
@@ -446,7 +437,9 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.cbar.patch.figure.canvas.draw()
 
 	def on_motion(self, event):
-		"""If moving mouse over RIXS-Plane instantly the resonant XAS- and XES-Plot will be generated as preview"""
+		"""
+		If moving mouse over RIXS-Plane instantly the resonant XAS- and XES-Plot will be generated as preview
+		"""
 		if self.press is None:
 			return
 		if event.inaxes != self.cbar.ax:
@@ -481,35 +474,6 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.cbar.patch.figure.canvas.mpl_disconnect(self.cidrelease)
 		self.cbar.patch.figure.canvas.mpl_disconnect(self.cidmotion)
 
-	"""
-		def onpick(self, event):
-		'''Capture the click event, find the corresponding data
-		point, then update accordingly.'''
-		# the click locations
-		try:
-			x = event.mouseevent.xdata
-			y = event.mouseevent.ydata
-			dx = np.array(x - self.x[event.ind], dtype=float)
-			dy = np.array(y - self.y[event.ind], dtype=float)
-			distances = np.hypot(dx, dy)
-			print distances
-			indmin = distances.argmin()
-			dataind = event.ind[indmin]
-			#self.lastind = dataind
-			self.update()
-		except Exception:
-			pass
-		def update(self):
-		'''Update the main graph and call my response function.'''
-		#if self.lastind is None:
-		#    return
-		#dataind = self.lastind
-		self.selected.set_visible(True)
-		self.selected.set_data(self.xexp, self.yexp)
-		#self.logic.test_fit(dataind)
-		self.fig.canvas.draw()
-	"""
-
 
 # Message Window classes#
 class w_message(QtWidgets.QWidget, warning.Ui_Form):
@@ -537,8 +501,6 @@ class c_loading(QtWidgets.QWidget, loading_CTM.Ui_Form):
 
 
 if __name__ == '__main__':
-	import sys
-
 	app = QtWidgets.QApplication(sys.argv)
 	window = MainWindow()
 	window.show()
