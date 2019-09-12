@@ -143,17 +143,17 @@ class Gaussian_Grid():
 		-------
 		grid : ndarray (2D)
 			The evenly gridded data.  The value of each cell is the median
-			value of the contents of the bin.
+			value of the contents of the bin_.
 		xi, yi :ndarray (2D)
 			The corresponding grid for the interpolations. Comes from the min/max of x and y
 		bins : ndarray (2D)
 			A grid the same shape as `grid`, except the value of each cell
-			is the number of points in that bin.  Returns only if
+			is the number of points in that bin_.  Returns only if
 			`retbin` is set to True.
 		wherebin : list (2D)
 			A 2D list the same shape as `grid` and `bins` where each cell
 			contains the indicies of `z` which contain the values stored
-			in the particular bin.
+			in the particular bin_.
 	   Revisions
 	   ---------
 			25.12.2018  Anselm Hahn
@@ -196,11 +196,13 @@ class Gaussian_Grid():
 				# Parametrization for the level of interpolation dependet on the given fwhm
 				ibin = np.logical_and(posx <= self.sigma_x, posy <= self.sigma_y)
 				ind = np.where(ibin == True)[0]
-				# fill the bin
-				bin = self.z[ibin]
-				if self.retloc: wherebin[row][col] = ind
-				if self.retbin: bins[row, col] = bin.size
-				if bin.size != 0:
+				# fill the bin_
+				bin_ = self.z[ibin]
+				if self.retloc:
+					wherebin[row][col] = ind
+				if self.retbin:
+					bins[row, col] = bin_.size
+				if bin_.size != 0:
 					binval = np.zeros((self.points, self.points), dtype=float)
 					for i in ind:
 						# Here the Gaussian Interpolation is running
