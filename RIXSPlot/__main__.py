@@ -1,12 +1,4 @@
 #!/usr/bin/env python
-__author__ = "Anselm W. Hahn"
-__copyright__ = "Copyright 2016, MPI-CEC"
-__credits__ = ["Anselm W. Hahn"]
-__porgram__ = "RIXS-Qt"
-__version__ = 1.10
-__maintainer__ = "Anselm W. Hahn"
-__email__ = "Anselm.Hahn@cec.mpg.de"
-__status__ = "Beta-Version"
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
@@ -38,7 +30,6 @@ import matplotlib.pylab as plt
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
 
-from matplotlib.figure import Figure
 import numpy as np
 from scipy.io import loadmat
 
@@ -87,7 +78,7 @@ class Form1(QtWidgets.QWidget, main_window.Ui_Form):
 		dlg = QFileDialog()
 		dlg.setFileMode(QFileDialog.AnyFile)
 		dlg.setNameFilter("Text files (*.out *.dat *.txt *.mat)")
-		#filenames = QtCore.QStringList()
+		# filenames = QtCore.QStringList()
 		if dlg.exec_():
 			filenames = dlg.selectedFiles()
 			# file = os.path.join(os.getcwd(), os.listdir(os.getcwd())[0])
@@ -152,7 +143,7 @@ class Form1(QtWidgets.QWidget, main_window.Ui_Form):
 						self.window4 = r_loading(self)
 						self.window4.show()
 						self.check['file'], self.check['type'] = True, 'RIXS'
-					# print self.check['data']
+				# print self.check['data']
 				except ValueError:
 					pass
 
