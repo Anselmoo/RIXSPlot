@@ -1,3 +1,8 @@
 /Interface/main_window_old.py
 /Interface/main_window_old.ui
 /Interface/mainwindow.ui
+/test_ci/
+/RIXSPlot.egg-info/
+/dist/
+/build/
+/.eggs/
