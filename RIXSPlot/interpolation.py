@@ -50,16 +50,16 @@ class interpolation():
 					Plane, xii, yii = gaus.griddata()
 					self.RIXS['XAS'], self.RIXS['XES'], self.RIXS['RIXS'] = xii, yii, np.nan_to_num(Plane)
 				""" Can only work if XAS points are equal to XES points so now """
-				# elif self.check['inter'] == 3:
-				#    grid_p = self.check['grid']
-				#    x0 = np.unique(self.x)
+			# elif self.check['inter'] == 3:
+			#    grid_p = self.check['grid']
+			#    x0 = np.unique(self.x)
 
-				#    xii = np.linspace(self.x_0, self.x_1,grid_p,dtype=float)
-				#    yii = np.linspace(self.y_0, self.y_1,grid_p,dtype=float)
-				#    xi, yi = len(x0) , len(self.x)/len(x0)
-				#    inter = interp2d(x0, self.y,np.reshape(self.z,(xi,yi)), kind='quintic')
-				#    Plane = inter(xii,yii)
-				#    self.RIXS['XAS'],self.RIXS['XES'],self.RIXS['RIXS'] = xii, yii, np.nan_to_num(Plane)
+			#    xii = np.linspace(self.x_0, self.x_1,grid_p,dtype=float)
+			#    yii = np.linspace(self.y_0, self.y_1,grid_p,dtype=float)
+			#    xi, yi = len(x0) , len(self.x)/len(x0)
+			#    inter = interp2d(x0, self.y,np.reshape(self.z,(xi,yi)), kind='quintic')
+			#    Plane = inter(xii,yii)
+			#    self.RIXS['XAS'],self.RIXS['XES'],self.RIXS['RIXS'] = xii, yii, np.nan_to_num(Plane)
 			return self.RIXS
 		except ValueError:
 			raise
@@ -212,9 +212,9 @@ class Gaussian_Grid():
 						else:
 							binval += np.zeros((self.points, self.points), dtype=float)
 					grid += binval
-					# grid[row, col] = np.average(binval)
-				# else:
-				# grid[row, col] = 0   #former np.nan fill empty bins with nans.
+				# grid[row, col] = np.average(binval)
+			# else:
+			# grid[row, col] = 0   #former np.nan fill empty bins with nans.
 		# return the grid
 		if self.retbin:
 			if self.retloc:

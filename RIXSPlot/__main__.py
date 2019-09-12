@@ -34,6 +34,7 @@ import numpy as np
 from scipy.io import loadmat
 
 
+# noinspection PyAttributeOutsideInit
 class Form1(QtWidgets.QWidget, main_window.Ui_Form):
 	def __init__(self, parent=None):
 		QtWidgets.QWidget.__init__(self, parent)
@@ -48,7 +49,7 @@ class Form1(QtWidgets.QWidget, main_window.Ui_Form):
 		              'dir': '/Users/'}
 
 	def handleButton(self):
-		if self.check['file'] == True:
+		if self.check['file']:
 			""" Reading all intial inputs"""
 			self.check['grid'] = int(self.gridPOINTS.value())
 			self.check['mode'] = int(self.kindRIXS.currentIndex())
@@ -191,7 +192,7 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		else:
 			self.ax1.set_xlabel('Energy Transfer (eV)')
 			self.ax3.set_ylabel('Energy Transfer (eV)')
-		if self.cont_t == True:
+		if self.cont_t:
 			if self.cont_n != 0:
 				self.cont = self.ax3.contour(self.x, self.y, self.amp, self.cont_n, cmap=plt.get_cmap(self.style))
 			else:
@@ -422,7 +423,8 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.fig.canvas.draw()
 	"""
 
-	def norm_XAS(self, data):
+	@staticmethod
+	def norm_XAS(data):
 		if np.max(data) != 0:
 			norm = data / np.max(data)
 		else:

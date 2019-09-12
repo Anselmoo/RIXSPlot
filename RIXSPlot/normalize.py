@@ -2,20 +2,18 @@
 
 import numpy as np
 import numpy.ma as ma
-import sys
 import matplotlib.cbook as cbook
 from matplotlib.colors import Normalize
 
 
 class MyNormalize(Normalize):
-    """
+	"""
     A Normalize class for imshow that allows different stretching functions
     for astronomical images.
     """
 
-    def __init__(self, stretch='Linear', exponent=5, vmid=None, vmin=None,
-                 vmax=None, clip=False):
-        """
+	def __init__(self, stretch='Linear', exponent=5, vmid=None, vmin=None, vmax=None, clip=False):
+		"""
         Initalize an APLpyNormalize instance.
 
         Optional Keyword Arguments:
@@ -41,179 +39,176 @@ class MyNormalize(Normalize):
                 the returned value will be 0 or 1, whichever is closer.
         """
 
-        if vmax < vmin:
-            raise Exception("vmax should be larger than vmin")
+		if vmax < vmin:
+			raise Exception("vmax should be larger than vmin")
 
-        # Call original initalization routine
-        Normalize.__init__(self, vmin=vmin, vmax=vmax, clip=clip)
+		# Call original initalization routine
+		Normalize.__init__(self, vmin=vmin, vmax=vmax, clip=clip)
 
-        # Save parameters
-        self.stretch = stretch
-        self.exponent = exponent
+		# Save parameters
+		self.stretch = stretch
+		self.exponent = exponent
 
-        if stretch == 'Power' and np.equal(self.exponent, None):
-            raise Exception("For stretch=='Power', an exponent should be specified")
-       
+		if stretch == 'Power' and np.equal(self.exponent, None):
+			raise Exception("For stretch=='Power', an exponent should be specified")
 
-        if np.equal(vmid, None):
-            if stretch == 'Log':
-                if vmin > 0:
-                    self.midpoint = vmax / vmin
-                elif vmin <= 0 :
-                    vmin = 0.00001
-                    self.midpoint = vmax / vmin
-                else:
-                    raise Exception("When using a Log stretch, if vmin < 0, then vmid has to be specified")
-            elif stretch == 'Arcsinh'or stretch == 'Arccosh':
-                self.midpoint = -1. / 30.
-            else:
-                self.midpoint = None
-        else:
-            if stretch == 'Log':
-                if vmin < vmid:
-                    raise Exception("When using a Log stretch, vmin should be larger than vmid")
-                self.midpoint = (vmax - vmid) / (vmin - vmid)
-            elif stretch == 'Arcsinh' or stretch == 'Arccosh':
-                self.midpoint = (vmid - vmin) / (vmax - vmin)
+		if np.equal(vmid, None):
+			if stretch == 'Log':
+				if vmin > 0:
+					self.midpoint = vmax / vmin
+				elif vmin <= 0:
+					vmin = 0.00001
+					self.midpoint = vmax / vmin
+				else:
+					raise Exception("When using a Log stretch, if vmin < 0, then vmid has to be specified")
+			elif stretch == 'Arcsinh' or stretch == 'Arccosh':
+				self.midpoint = -1. / 30.
+			else:
+				self.midpoint = None
+		else:
+			if stretch == 'Log':
+				if vmin < vmid:
+					raise Exception("When using a Log stretch, vmin should be larger than vmid")
+				self.midpoint = (vmax - vmid) / (vmin - vmid)
+			elif stretch == 'Arcsinh' or stretch == 'Arccosh':
+				self.midpoint = (vmid - vmin) / (vmax - vmin)
 
-            else:
-                self.midpoint = None
+			else:
+				self.midpoint = None
 
-    def __call__(self, value, clip=None):
+	def __call__(self, value, clip=None):
 
-        #read in parameters
-        method = self.stretch
-        exponent = self.exponent
-        midpoint = self.midpoint
+		# read in parameters
+		method = self.stretch
+		exponent = self.exponent
+		midpoint = self.midpoint
 
-        # ORIGINAL MATPLOTLIB CODE
+		# ORIGINAL MATPLOTLIB CODE
 
-        if clip is None:
-            clip = self.clip
+		if clip is None:
+			clip = self.clip
 
-        if np.iterable(value):
-            vtype = 'array'
-            val = ma.asarray(value).astype(np.float)
-        else:
-            vtype = 'scalar'
-            val = ma.array([value]).astype(np.float)
+		if np.iterable(value):
+			vtype = 'array'
+			val = ma.asarray(value).astype(np.float)
+		else:
+			vtype = 'scalar'
+			val = ma.array([value]).astype(np.float)
 
-        self.autoscale_None(val)
-        vmin, vmax = self.vmin, self.vmax
-        if vmin > vmax:
-            raise ValueError("minvalue must be less than or equal to maxvalue")
-        elif vmin == vmax:
-            return 0.0 * val
-        else:
-            if clip:
-                mask = ma.getmask(val)
-                val = ma.array(np.clip(val.filled(vmax), vmin, vmax),
-                                mask=mask)
-            result = (val - vmin) * (1.0 / (vmax - vmin))
+		self.autoscale_None(val)
+		vmin, vmax = self.vmin, self.vmax
+		if vmin > vmax:
+			raise ValueError("minvalue must be less than or equal to maxvalue")
+		elif vmin == vmax:
+			return 0.0 * val
+		else:
+			if clip:
+				mask = ma.getmask(val)
+				val = ma.array(np.clip(val.filled(vmax), vmin, vmax), mask=mask)
+			result = (val - vmin) * (1.0 / (vmax - vmin))
 
-            # CUSTOM APLPY CODE
+			# CUSTOM APLPY CODE
 
-            # Keep track of negative values
-            negative = result < 0.
+			# Keep track of negative values
+			negative = result < 0.
 
-            if self.stretch == 'Linear':
+			if self.stretch == 'Linear':
 
-                pass
+				pass
 
-            elif self.stretch == 'Log':
+			elif self.stretch == 'Log':
 
-                #result = np.log(result * (self.midpoint - 1.) + 1.) \
-                #        / np.log(self.midpoint)
-                result = ma.log10(result * (self.midpoint - 1.) + 1.) \
-                       / ma.log10(self.midpoint)
+				# result = np.log(result * (self.midpoint - 1.) + 1.) \
+				#        / np.log(self.midpoint)
+				result = ma.log10(result * (self.midpoint - 1.) + 1.) \
+				         / ma.log10(self.midpoint)
 
-            elif self.stretch == 'Sqrt':
+			elif self.stretch == 'Sqrt':
 
-                result = ma.sqrt(ma.abs(result))
+				result = ma.sqrt(ma.abs(result))
 
-            elif self.stretch == 'Arcsinh':
+			elif self.stretch == 'Arcsinh':
 
-                result = ma.arcsinh(result / self.midpoint) \
-                       / ma.arcsinh(1. / self.midpoint)
-            
-            elif self.stretch == 'Arccosh':
+				result = ma.arcsinh(result / self.midpoint) \
+				         / ma.arcsinh(1. / self.midpoint)
 
-                result = ma.arccosh(result / self.midpoint) \
-                       / ma.arccosh(1. / self.midpoint)
-                    
-            elif self.stretch == 'Power':
+			elif self.stretch == 'Arccosh':
 
-                result = ma.power(result, exponent)
-            
-            elif self.stretch == 'Exp':
-                
-                result = np.exp(result)
+				result = ma.arccosh(result / self.midpoint) \
+				         / ma.arccosh(1. / self.midpoint)
 
-            else:
+			elif self.stretch == 'Power':
 
-                raise Exception("Unknown stretch in APLpyNormalize: %s" %
-                                self.stretch)
+				result = ma.power(result, exponent)
 
-            # Now set previously negative values to 0, as these are
-            # different from true NaN values in the FITS image
-            result[negative] = -np.inf
+			elif self.stretch == 'Exp':
 
-        if vtype == 'Scalar':
-            result = result[0]
+				result = np.exp(result)
 
-        return result
+			else:
 
-    def inverse(self, value):
+				raise Exception("Unknown stretch in APLpyNormalize: %s" % self.stretch)
 
-        # ORIGINAL MATPLOTLIB CODE
+			# Now set previously negative values to 0, as these are
+			# different from true NaN values in the FITS image
+			result[negative] = -np.inf
 
-        if not self.scaled():
-            raise ValueError("Not invertible until scaled")
+		if vtype == 'Scalar':
+			result = result[0]
 
-        vmin, vmax = self.vmin, self.vmax
+		return result
 
-        # CUSTOM APLPY CODE
+	def inverse(self, value):
 
-        if cbook.iterable(value):
-            val = ma.asarray(value)
-        else:
-            val = value
+		# ORIGINAL MATPLOTLIB CODE
 
-        if self.stretch == 'Linear':
+		if not self.scaled():
+			raise ValueError("Not invertible until scaled")
 
-            pass
+		vmin, vmax = self.vmin, self.vmax
 
-        elif self.stretch == 'Log':
+		# CUSTOM APLPY CODE
 
-            val = (ma.power(10., val * ma.log10(self.midpoint)) - 1.) / (self.midpoint - 1.)
+		if cbook.iterable(value):
+			val = ma.asarray(value)
+		else:
+			val = value
 
-        elif self.stretch == 'Sqrt':
+		if self.stretch == 'Linear':
 
-            val = val * val
+			pass
 
-        elif self.stretch == 'Arcsinh':
+		elif self.stretch == 'Log':
 
-            val = self.midpoint * \
-                  ma.sinh(val * ma.arcsinh(1. / self.midpoint))
-                
-        elif self.stretch == 'Arccosh':
+			val = (ma.power(10., val * ma.log10(self.midpoint)) - 1.) / (self.midpoint - 1.)
 
-            val = self.midpoint * \
-                  ma.cosh(val * ma.arccosh(1. / self.midpoint))
-                
-        elif self.stretch == 'Power':
+		elif self.stretch == 'Sqrt':
 
-            val = ma.power(val, (1. / self.exponent))
+			val = val * val
 
-        elif self.stretch == 'Exp':
+		elif self.stretch == 'Arcsinh':
 
-            val = 1./ np.exp(val)
-    
-        
-        
-        else:
+			val = self.midpoint * \
+			      ma.sinh(val * ma.arcsinh(1. / self.midpoint))
 
-            raise Exception("Unknown stretch in APLpyNormalize: %s" %
-                            self.stretch)
+		elif self.stretch == 'Arccosh':
 
-        return vmin + val * (vmax - vmin)
+			val = self.midpoint * \
+			      ma.cosh(val * ma.arccosh(1. / self.midpoint))
+
+		elif self.stretch == 'Power':
+
+			val = ma.power(val, (1. / self.exponent))
+
+		elif self.stretch == 'Exp':
+
+			val = 1. / np.exp(val)
+
+
+
+		else:
+
+			raise Exception("Unknown stretch in APLpyNormalize: %s" %
+			                self.stretch)
+
+		return vmin + val * (vmax - vmin)

@@ -1,4 +1,3 @@
 import sys
 sys.path.append('..')
-from . import normalize as norm
-from . import interpolation as inp
+from RIXSPlot import __main__ as MyApp
