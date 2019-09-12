@@ -320,7 +320,8 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 			c, = self.ax1.plot(CUT_XES[0], CUT_XES[2], label=label)
 			self.ax3.axvline(self.x[xpos], color=c.get_color(), lw=1.25, alpha=0.75)
 			newpath = r'/XES_CUTs_' + self.filename  # +'_'+self.mode
-			if not os.path.exists(self.pathway + newpath): os.makedirs(self.pathway + newpath)
+			if not os.path.exists(self.pathway + newpath):
+				os.makedirs(self.pathway + newpath)
 			os.chdir(self.pathway + newpath)
 			np.savetxt(self.pathway + newpath + '/XES_Cut_at_' + label + '.txt', CUT_XES.T, delimiter='\t',
 			           newline='\n', header='En\tnorm.Int\tInt', fmt="%.4f")
@@ -355,7 +356,8 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 				c, = self.ax1.plot(CUT_XES[0], CUT_XES[2], label=label)
 				self.ax3.axvline(self.x[xpos], color=c.get_color(), lw=1.25, alpha=0.75)
 				newpath = r'/XES_CUTs_' + self.filename  # +'_'+self.mode
-				if not os.path.exists(self.pathway + newpath): os.makedirs(self.pathway + newpath)
+				if not os.path.exists(self.pathway + newpath):
+					os.makedirs(self.pathway + newpath)
 				os.chdir(self.pathway + newpath)
 				np.savetxt(self.pathway + newpath + '/XES_Cut_at_' + label + '.txt', CUT_XES.T, delimiter='\t',
 				           newline='\n', header='En\tnormInt\tInt', fmt="%.4f")
@@ -420,67 +422,6 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.keypress = self.cbar.patch.figure.canvas.mpl_connect(
 			'key_press_event', self.key_press)
 		"""Here the functions for real time cut are working"""
-
-	"""
-	def update_coeff(self, a1,a2):
-		'''update the AR(2) coefficients choice
-		and the roots of the AR polynomial'''
-		# Update the title
-		#self.a.set_title('Choose AR(2) coefficients: '
-		#                   '$(a_1, a_2)$=(%.2f, %.2f) \n'
-		#                   'process $X_k = a_1 X_{k-1} + a_2 X_{k-2} + Z_k$'\
-		#                   % (a1, a2))
-		# Move the circle
-		print a1, a2
-		self.circ.center = a1, a2
-		# Move the guiding lines
-		#coeff_line.set_data([a1, a1, 0], [0,a2,a2])
-		# Move the roots:
-		#poly_ar2 = Polynomial([-a2, -a1, 1])
-		#root1, root2 = poly_ar2.roots().astype(complex)
-		#self.fig.set_data([root1.real, root2.real],
-		#                    [root1.imag, root2.imag])
-	def update_response(self, a1,a2):
-		'''update the plots of the filter responses
-		(impulse and frequency)'''
-		print a1, a2
-		#h_ir = lfilter([1], [1, -a1, -a2], dirac)
-		#ir_line.set_data(k, h_ir)
-		#spectrum_line.set_data(omega_list/np.pi, spectrum_ar2(a1,a2,omega_list))
-		#self.spec_poly.remove()
-		#self.spec_poly = ax_spec.fill_between(omega_list/np.pi,
-		#                                      spectrum_ar2(a1,a2,omega_list),
-		#                                      color='#FFAA00', alpha=0.5, lw=0)
-	### Event handlers
-	def onpress(self, event):
-		'''mouse press = move the circle + follow the mouse'''
-		if event.inaxes!=self.fig: return
-		self.update_coeff(a1=event.xdata, a2=event.ydata)
-		print event.xdata
-		self.update_response(a1=event.xdata, a2=event.ydata)
-		self.fig.canvas.draw()
-		#fig_res.canvas.draw()
-		self.pressevent = event
-
-	def onrelease(self, event):
-		'''mouse release = stop following the mouse'''
-		if self.pressevent is None: return
-
-		self.update_coeff(a1=event.xdata, a2=event.ydata)
-		self.update_response(a1=event.xdata, a2=event.ydata)
-		self.fig.canvas.draw()
-		#fig_res.canvas.draw()
-		self.pressevent = None
-		print('a1, a2 = (%.2f, %.2f)' % circ.center)
-	def onmove(self, event):
-		'''mouse move = move the circle'''
-		if self.pressevent is None or event.inaxes!=self.pressevent.inaxes: return
-
-		self.update_coeff(a1=event.xdata, a2=event.ydata)
-		self.update_response(a1=event.xdata, a2=event.ydata)
-		self.fig.canvas.draw()
-		self.fig.canvas.draw()
-	"""
 
 	def on_press(self, event):
 		"""Data will be stored depending if you are in the RIXS-MAP-, XAS- or XES-Plot"""
