@@ -156,7 +156,7 @@ class Gaussian_Grid():
 			in the particular bin.
 	   Revisions
 	   ---------
-			2016-02-19  Anselm W. Hahn for MPG-CEC
+			25.12.2018  Anselm Hahn
 		 """
 		# Input Variables
 
