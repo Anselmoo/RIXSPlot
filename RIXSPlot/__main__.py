@@ -8,8 +8,8 @@ __maintainer__ = "Anselm W. Hahn"
 __email__ = "Anselm.Hahn@cec.mpg.de"
 __status__ = "Beta-Version"
 
-from PyQt5 import QtCore, QtGui
-from PyQt5.QtGui import *
+from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import *
 
 try:
 	_fromUtf8 = QtCore.QString.fromUtf8
@@ -28,17 +28,9 @@ except AttributeError:
 		return QtGui.QApplication.translate(context, text, disambig)
 
 # Import Windows
-import mainwindow
-import subwindow_RIXS
-
-import warning
-import loading_ORCA
-import loading_RIXS
-import loading_CTM
+from Interface import *
 # Import own libaries & classes
-
-import normalize as norm
-import interpolation as inp
+from RIXSPlot import *
 
 # Matplotlib
 import os
@@ -51,9 +43,9 @@ import numpy as np
 from scipy.io import loadmat
 
 
-class Form1(QtGui.QWidget, mainwindow.Ui_Form):
+class Form1(QtWidgets.QWidget, main_window.Ui_Form):
 	def __init__(self, parent=None):
-		QtGui.QWidget.__init__(self, parent)
+		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
 		self.RIXSPlot.clicked.connect(self.handleButton)
 		self.openFILE.clicked.connect(self.getfiles)
@@ -95,7 +87,7 @@ class Form1(QtGui.QWidget, mainwindow.Ui_Form):
 		dlg = QFileDialog()
 		dlg.setFileMode(QFileDialog.AnyFile)
 		dlg.setNameFilter("Text files (*.out *.dat *.txt *.mat)")
-		filenames = QtCore.QStringList()
+		#filenames = QtCore.QStringList()
 		if dlg.exec_():
 			filenames = dlg.selectedFiles()
 			# file = os.path.join(os.getcwd(), os.listdir(os.getcwd())[0])
@@ -165,9 +157,9 @@ class Form1(QtGui.QWidget, mainwindow.Ui_Form):
 					pass
 
 
-class RIXS(QtGui.QWidget, subwindow_RIXS.Ui_RIXS):
+class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 	def __init__(self, data, check, parent=None):
-		QtGui.QWidget.__init__(self, parent)
+		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
 		self.amp = data['RIXS']
 		self.x, self.y = data['XAS'], data['XES']
@@ -251,7 +243,7 @@ class RIXS(QtGui.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.Save_Button.clicked.connect(self.save_fig_Plane)
 		self.Clear_Button.clicked.connect(self.clean_subplots)
 		# set the layout
-		layout = QtGui.QVBoxLayout()
+		layout = QtWidgets.QVBoxLayout()
 		layout.addWidget(self.toolbar)
 		layout.addWidget(self.canvas)
 		self.setLayout(layout)
@@ -616,34 +608,34 @@ class RIXS(QtGui.QWidget, subwindow_RIXS.Ui_RIXS):
 
 
 # Message Window classes#
-class w_message(QtGui.QWidget, warning.Ui_Form):
+class w_message(QtWidgets.QWidget, warning.Ui_Form):
 	def __init__(self, value, parent=None):
-		QtGui.QWidget.__init__(self, parent)
+		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
 
 
-class r_loading(QtGui.QWidget, loading_RIXS.Ui_Form):
+class r_loading(QtWidgets.QWidget, loading_RIXS.Ui_Form):
 	def __init__(self, value, parent=None):
-		QtGui.QWidget.__init__(self, parent)
+		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
 
 
-class o_loading(QtGui.QWidget, loading_ORCA.Ui_Form):
+class o_loading(QtWidgets.QWidget, loading_ORCA.Ui_Form):
 	def __init__(self, value, parent=None):
-		QtGui.QWidget.__init__(self, parent)
+		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
 
 
-class c_loading(QtGui.QWidget, loading_CTM.Ui_Form):
+class c_loading(QtWidgets.QWidget, loading_CTM.Ui_Form):
 	def __init__(self, value, parent=None):
-		QtGui.QWidget.__init__(self, parent)
+		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
 
 
 if __name__ == '__main__':
 	import sys
 
-	app = QtGui.QApplication(sys.argv)
+	app = QtWidgets.QApplication(sys.argv)
 	window = Form1()
 	window.show()
 	sys.exit(app.exec_())

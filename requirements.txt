@@ -1,0 +1,7 @@
+# List all dependencies of RIXSPlot
+# Requires pip >= 18.0
+
+numpy
+scipy
+matplotlib
+PyQt5
