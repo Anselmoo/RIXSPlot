@@ -13,4 +13,4 @@ install:
   - python setup.py install
 script:
   - py.test --cov RIXSPlot test # Run the tests and check for test coverage.
-  - python -m RIXSPlot # Run the interface in the verbose mode
+  - python RIXSPlot # Run the interface in the verbose mode
