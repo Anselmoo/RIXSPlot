@@ -10,7 +10,9 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
+# noinspection PyAttributeOutsideInit,PyPep8
 class Ui_Form(object):
+    # noinspection PyPep8
     def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(430, 580)
