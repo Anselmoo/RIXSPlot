@@ -250,7 +250,8 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.fig.canvas.draw()
 
 	def onmotion(self, event):
-		if event.inaxes != self.ax3: return
+		if event.inaxes != self.ax3:
+			return
 		xpos = int(np.argmin(np.abs(event.xdata - self.x)))
 		ypos = int(np.argmin(np.abs(event.ydata - self.y)))
 		self.ax1init.remove()
@@ -281,7 +282,7 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 				for i in range(ypos_down, ypos_up + 1):
 					count += 1
 					int_xas = np.array(int_xas) + np.array(self.amp[i, :])
-				int_xas = int_xas / count
+				int_xas /= count
 			# For XAS -CUTS
 			int_norm = self.norm_XAS(int_xas)
 			CUT_XAS = np.array([self.x, int_norm, int_xas])
