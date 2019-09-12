@@ -7,7 +7,6 @@ import sys
 import matplotlib.pylab as plt
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as NavigationToolbar
-
 import numpy as np
 from scipy.io import loadmat
 
@@ -121,7 +120,6 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_Form):
 				# print self.check['data']
 				except ValueError:
 					pass
-
 
 class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 	def __init__(self, data, check, parent=None):
@@ -477,25 +475,21 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.cbar.patch.figure.canvas.mpl_disconnect(self.cidrelease)
 		self.cbar.patch.figure.canvas.mpl_disconnect(self.cidmotion)
 
-
 # Message Window classes#
 class w_message(QtWidgets.QWidget, warning.Ui_Form):
 	def __init__(self, value, parent=None):
 		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
 
-
 class r_loading(QtWidgets.QWidget, loading_RIXS.Ui_Form):
 	def __init__(self, value, parent=None):
 		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
 
-
 class o_loading(QtWidgets.QWidget, loading_ORCA.Ui_Form):
 	def __init__(self, value, parent=None):
 		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
-
 
 class c_loading(QtWidgets.QWidget, loading_CTM.Ui_Form):
 	def __init__(self, value, parent=None):
