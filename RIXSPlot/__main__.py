@@ -2,29 +2,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
-
-try:
-	_fromUtf8 = QtCore.QString.fromUtf8
-except AttributeError:
-	def _fromUtf8(s):
-		return s
-
-try:
-	_encoding = QtGui.QApplication.UnicodeUTF8
-
-
-	def _translate(context, text, disambig):
-		return QtGui.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-	def _translate(context, text, disambig):
-		return QtGui.QApplication.translate(context, text, disambig)
-
-# Import Windows
-from Interface import *
-# Import own libaries & classes
-from RIXSPlot import *
-
-# Matplotlib
 import os
 import matplotlib.pylab as plt
 from matplotlib.backends.backend_qt4agg import FigureCanvasQTAgg as FigureCanvas
@@ -33,9 +10,14 @@ from matplotlib.backends.backend_qt4agg import NavigationToolbar2QT as Navigatio
 import numpy as np
 from scipy.io import loadmat
 
+# Import Windows
+from Interface import *
+# Import own libraries & classes
+from RIXSPlot import *
+
 
 # noinspection PyAttributeOutsideInit
-class Form1(QtWidgets.QWidget, main_window.Ui_Form):
+class MainWindow(QtWidgets.QWidget, main_window.Ui_Form):
 	def __init__(self, parent=None):
 		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
@@ -268,7 +250,8 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.fig.canvas.draw()
 
 	def onmotion(self, event):
-		if event.inaxes != self.ax3: return
+		if event.inaxes != self.ax3:
+			return
 		xpos = int(np.argmin(np.abs(event.xdata - self.x)))
 		ypos = int(np.argmin(np.abs(event.ydata - self.y)))
 		self.ax1init.remove()
@@ -299,7 +282,7 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 				for i in range(ypos_down, ypos_up + 1):
 					count += 1
 					int_xas = np.array(int_xas) + np.array(self.amp[i, :])
-				int_xas = int_xas / count
+				int_xas /= count
 			# For XAS -CUTS
 			int_norm = self.norm_XAS(int_xas)
 			CUT_XAS = np.array([self.x, int_norm, int_xas])
@@ -341,8 +324,9 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.fig.canvas.draw()
 
 	def onpick(self, event):
-		'''Capture the click event, find the corresponding data
-		point, then update accordingly.'''
+		"""
+		Capture the click event, find the corresponding data point, then update accordingly.
+		"""
 		if event.inaxes != self.ax3:
 			return
 		elif event.inaxes == self.ax3:
@@ -400,28 +384,7 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		# Now drawing Cuts in the subplots for the RIXS plane
 		self.fig.canvas.draw()
 
-	# plt.show()
-	# dx = np.array(x - self.x[event.ind], dtype=float)
-	# dy = np.array(y - self.y[event.ind], dtype=float)
-	# distances = np.hypot(dx, dy)
-	# print distances
-	# indmin = distances.argmin()
-	# dataind = event.ind[indmin]
-	# self.lastind = dataind
-	# self.update()
-	# except Exception:
-	#    pass
-	"""
-		def update(self):
-		'''Update the main graph and call my response function.'''
-		#if self.lastind is None:
-		#    return
-		#dataind = self.lastind
-		self.selected.set_visible(True)
-		self.selected.set_data(self.xexp, self.yexp)
-		#self.logic.test_fit(dataind)
-		self.fig.canvas.draw()
-	"""
+
 
 	@staticmethod
 	def norm_XAS(data):
@@ -516,11 +479,12 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 	"""
 
 	def on_press(self, event):
-		"""on button press we will see if the mouse is over us and store some data"""
+		"""Data will be stored depending if you are in the RIXS-MAP-, XAS- or XES-Plot"""
 		if event.inaxes != self.cbar.ax: return
 		self.press = event.x, event.y
 
 	def key_press(self, event):
+		"""Genereting new cmap-ranges"""
 		if event.key == 'down':
 			self.index += 1
 		elif event.key == 'up':
@@ -537,9 +501,11 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.cbar.patch.figure.canvas.draw()
 
 	def on_motion(self, event):
-		'on motion we will move the rect if the mouse is over us'
-		if self.press is None: return
-		if event.inaxes != self.cbar.ax: return
+		"""If moving mouse over RIXS-Plane instantly the resonant XAS- and XES-Plot will be generated as preview"""
+		if self.press is None:
+			return
+		if event.inaxes != self.cbar.ax:
+			return
 		xprev, yprev = self.press
 		dx = event.x - xprev
 		dy = event.y - yprev
@@ -558,14 +524,14 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.cbar.patch.figure.canvas.draw()
 
 	def on_release(self, event):
-		"""on release we reset the press data"""
+		"""Reset all plotted data and cut-lines"""
 		self.press = None
 		self.cont.set_norm(self.cbar.norm)
 		# self.contour.set_norm(self.cbar.norm)
 		self.cbar.patch.figure.canvas.draw()
 
 	def disconnect(self):
-		"""disconnect all the stored connection ids"""
+		"""Disconnect all the stored connection ids"""
 		self.cbar.patch.figure.canvas.mpl_disconnect(self.cidpress)
 		self.cbar.patch.figure.canvas.mpl_disconnect(self.cidrelease)
 		self.cbar.patch.figure.canvas.mpl_disconnect(self.cidmotion)
@@ -629,6 +595,6 @@ if __name__ == '__main__':
 	import sys
 
 	app = QtWidgets.QApplication(sys.argv)
-	window = Form1()
+	window = MainWindow()
 	window.show()
 	sys.exit(app.exec_())
