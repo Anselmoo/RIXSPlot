@@ -5,3 +5,4 @@ numpy
 scipy
 matplotlib
 PyQt5
+PyQt5-sip

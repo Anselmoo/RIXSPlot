@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import *
 import os
 import sys
@@ -18,6 +17,7 @@ from RIXSPlot import *
 
 # noinspection PyAttributeOutsideInit
 class MainWindow(QtWidgets.QWidget, main_window.Ui_Form):
+
 	def __init__(self, parent=None):
 		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
@@ -122,6 +122,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_Form):
 					pass
 
 class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
+
 	def __init__(self, data, check, parent=None):
 		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
@@ -477,21 +478,29 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 
 # Message Window classes#
 class w_message(QtWidgets.QWidget, warning.Ui_Form):
+
 	def __init__(self, value, parent=None):
 		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
+
 
 class r_loading(QtWidgets.QWidget, loading_RIXS.Ui_Form):
+
 	def __init__(self, value, parent=None):
 		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
+
 
 class o_loading(QtWidgets.QWidget, loading_ORCA.Ui_Form):
+
 	def __init__(self, value, parent=None):
 		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
 
+
+
 class c_loading(QtWidgets.QWidget, loading_CTM.Ui_Form):
+
 	def __init__(self, value, parent=None):
 		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
