@@ -1,0 +1,850 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>430</width>
+    <height>580</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>430</width>
+    <height>580</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>430</width>
+    <height>580</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>RIXS Plot</string>
+  </property>
+  <widget class="Line" name="line_3">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>80</y>
+     <width>451</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="Line" name="line_14">
+   <property name="geometry">
+    <rect>
+     <x>-10</x>
+     <y>330</y>
+     <width>461</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>220</y>
+     <width>411</width>
+     <height>115</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_8">
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_52">
+      <property name="text">
+       <string>Image-Style</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QComboBox" name="kindIMG">
+      <property name="maxVisibleItems">
+       <number>5</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>viridis</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>inferno</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>plasma</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>magma</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Blues</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>BuGn</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>BuPu</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>GnBu</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Greens</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Greys</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Oranges</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>OrRd</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>PuBu</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>PuBuGn</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>PuRd</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Purples</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>RdPu</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Reds</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>YlGn</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>YlGnBu</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>YlOrBr</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>YlOrRd</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>afmhot</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>autumn</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>bone</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>cool</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>cooper</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gist_heat</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gray</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>hot</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>pink</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>spring</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>summer</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>winter</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>BrBG</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>bwr</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>coolwarm</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>PiYG</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>PRGn</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>PuOr</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>RdBu</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>RdGy</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>RdYlBu</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>RdYlGn</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Spectral</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>seismic</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Accent</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Dark2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Paired</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Pastel1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Pastel2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Set1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Set2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Set3</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gist_earth</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>terrain</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>ocean</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gist_stern</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>brg</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>CMRmap</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>cubehelix</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gnuplot</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gnuplot2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gist_ncar</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>nipy_spectral</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>jet</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>rainbow</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>gist_rainbow</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>hsv</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>flag</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>prism</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QSpinBox" name="contPOINTS">
+      <property name="maximum">
+       <number>1000</number>
+      </property>
+      <property name="value">
+       <number>0</number>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_53">
+      <property name="text">
+       <string>Contour-Style</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_54">
+      <property name="text">
+       <string>Contours</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QCheckBox" name="checkContour">
+      <property name="text">
+       <string>Only Contours</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QComboBox" name="kindCONT">
+      <item>
+       <property name="text">
+        <string>Linear</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Log</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Sqrt</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Power</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Exp</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Arccosh</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>411</width>
+     <height>76</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QPushButton" name="openFILE">
+      <property name="text">
+       <string>Open</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="fileNAME">
+      <property name="text">
+       <string>out</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>4</x>
+     <y>340</y>
+     <width>420</width>
+     <height>231</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout_12">
+    <item>
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="3" column="2">
+       <widget class="QDoubleSpinBox" name="en_y1">
+        <property name="minimum">
+         <double>-100000.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.500000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QDoubleSpinBox" name="en_x0">
+        <property name="minimum">
+         <double>-100000.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.500000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QDoubleSpinBox" name="enSHIFT_Y">
+        <property name="minimum">
+         <double>-1000.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1000.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.500000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="2">
+       <widget class="QDoubleSpinBox" name="em_AVSpinBox">
+        <property name="minimum">
+         <double>-100.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.500000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QDoubleSpinBox" name="enSHIFT_X">
+        <property name="minimum">
+         <double>-1000.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>1000.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.500000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="2">
+       <widget class="QDoubleSpinBox" name="inc_AVSpinBox">
+        <property name="minimum">
+         <double>-100.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.500000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Average</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_43">
+        <property name="text">
+         <string>Energy-Shift</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Incident (x)</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Emission (y)</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QDoubleSpinBox" name="en_x1">
+        <property name="minimum">
+         <double>-100000.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.500000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QDoubleSpinBox" name="en_y0">
+        <property name="minimum">
+         <double>-100000.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>100000.000000000000000</double>
+        </property>
+        <property name="singleStep">
+         <double>0.500000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_44">
+        <property name="text">
+         <string>Start</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_45">
+        <property name="text">
+         <string>End</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QPushButton" name="RIXSPlot">
+      <property name="text">
+       <string>Plot</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>100</y>
+     <width>411</width>
+     <height>115</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_6">
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_46">
+      <property name="text">
+       <string>RIXS-Mode</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_47">
+      <property name="text">
+       <string>Interpolation</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_49">
+      <property name="text">
+       <string>Gridpoints</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QComboBox" name="kindRIXS">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <property name="maxVisibleItems">
+       <number>2</number>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
+      <item>
+       <property name="text">
+        <string>Emission</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Energy Loss</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QSpinBox" name="gridPOINTS">
+      <property name="minimum">
+       <number>10</number>
+      </property>
+      <property name="maximum">
+       <number>5000</number>
+      </property>
+      <property name="value">
+       <number>500</number>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QComboBox" name="kindINTER">
+      <property name="maxVisibleItems">
+       <number>3</number>
+      </property>
+      <item>
+       <property name="text">
+        <string>Linear</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Nearest-Neighbor</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Cubic</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Gaussian</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="Line" name="line_15">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>431</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+  <widget class="Line" name="line_16">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>210</y>
+     <width>451</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Horizontal</enum>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
