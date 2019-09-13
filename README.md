@@ -6,7 +6,7 @@ For visualization of the RIXS spectra, the colormap reference of [`matplotlib`](
 
 **RIXSPlot** provides:
 
-  * Visualization of RIXS-Maps
+  * Visualization of RIXS-Maps and their RIXS-cuts
   * Exporting of (*opt:* averaged) XAS- and XES-Spectra from RIXS
   * Re-calibrating of the RIXS-Maps
   * Natural-Broadening-Interpolation for converting single RIXS-spectra to a complete RIXS-Map
