@@ -15,10 +15,5 @@ install:
   - python setup.py build  # Building the app
   - python setup.py install # Installing the app
 script:
-  - set -e
-  - coverage run -m pytest  # Run the tests and check for test coverage.
-  - coverage report -m  # Generate test coverage report.
-  - codecov  # Upload the report to codecov.
-  - py.test --cov RIXSPlot test # Run the tests and check for test coverage.
   – flake8 RIXSPlot # Flake8-Check
-  - python -m RIXSPlot --help # Check if commandline will be opened.
+  - python RIXSPlot # Check if commandline will be opened.
