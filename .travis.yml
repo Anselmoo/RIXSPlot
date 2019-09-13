@@ -18,5 +18,5 @@ script:
   - coverage report -m  # Generate test coverage report.
   - codecov  # Upload the report to codecov.
   - py.test --cov RIXSPlot test # Run the tests and check for test coverage.
-  – flake8 RIXSPlot
+  – flake8 RIXSPlot # Flake8-Check
   - python -m RIXSPlot --help # Check if commandline will be opened.
