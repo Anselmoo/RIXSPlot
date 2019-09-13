@@ -1,5 +1,3 @@
-# The Normalize class is largely based on code provided by Sarah Graves.
-
 import numpy as np
 import numpy.ma as ma
 import matplotlib.cbook as cbook
