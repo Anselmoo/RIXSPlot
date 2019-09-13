@@ -9,9 +9,12 @@ COPY Interface /app/Interface
 
 WORKDIR /app
 RUN pip install -r requirements.txt
+# Build Python-Interface
 RUN python setup.py build
+# Install Python-Interface
 RUN python setup.py install
-RUN python -m RIXSPlot
+RUN flake8 RIXSPlot
+RUN python RIXSPlot
 ADD . /app
 
 
