@@ -1,22 +1,22 @@
+---
 language: python
+sudo: required
 python:
   - "3.6"
   - "3.7"
 cache: pip3
 install:
+  - sudo apt-get update
+  - sudo apt-get -y install python3-pyqt5
   - pip3 install -r requirements.txt
-  # Installing test-enviroment
   - pip3 install pytest
   - pip3 install pytest-cov
-  – pip3 install flake8
-  # Building and Installing the app
-  - python setup.py build
+  - pip3 install flake8
   - python setup.py install
 script:
-  - set -e
-  - coverage run -m pytest  # Run the tests and check for test coverage.
-  - coverage report -m  # Generate test coverage report.
-  - codecov  # Upload the report to codecov.
-  - py.test --cov RIXSPlot test # Run the tests and check for test coverage.
-  – flake8 RIXSPlot # Flake8-Check
-  - python -m RIXSPlot --help # Check if commandline will be opened.
+  - coverage run -m pytest  # Run the tests and check for test coverage
+  - coverage report -m  # Generate test coverage report
+  - codecov  # Upload the report to codecov
+  - flake8 RIXSPlot  # Flake8-Check
+  - py.test --cov RIXSPlot test  # Run the tests and check for test coverage
+  - python RIXSPlot  # Run the interface in the verbose mode
