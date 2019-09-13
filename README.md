@@ -1,6 +1,8 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/anselmoo/rixsplot/badge)](https://www.codefactor.io/repository/github/anselmoo/rixsplot)
 [![codebeat badge](https://codebeat.co/badges/f871eac9-8f93-41b5-aa4a-194af53cdf00)](https://codebeat.co/projects/github-com-anselmoo-rixsplot-master)
+[![DOI](https://zenodo.org/badge/207867243.svg)](https://zenodo.org/badge/latestdoi/207867243)
 [![GitHub](https://img.shields.io/github/license/Anselmoo/RIXSPlot)](https://github.com/Anselmoo/RIXSPlot/blob/master/LICENSE)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/Anselmoo/RIXSPlot)](https://github.com/Anselmoo/RIXSPlot/releases)
 # RIXSPlot
 
 In order to understand experimental, as well as computational RIXS results, the **RIXSPlot** is developed as a PythonQt-Interface.  **RIXSPlot** allows plotting of the *experimental* as well as the *calculated* RIXS-Maps and can generate the XAS-, XES-, and EnergyLoss-Cuts. For this reason, three subplots will be generated in the main-panel for XAS, XES, and RIXS and the RIXS-cuts can be extracted of each single windows just by clicking on the observed feature. After clicking, the data will be immediately exported as *txt*-file.
