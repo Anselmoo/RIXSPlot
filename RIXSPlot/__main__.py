@@ -56,7 +56,7 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_Form):
 			self.window2.show()
 
 	def getfiles(self):
-
+		""" Open the input-files  """
 		dlg = QFileDialog()
 		dlg.setFileMode(QFileDialog.AnyFile)
 		dlg.setNameFilter("Text files (*.out *.dat *.txt *.mat)")
@@ -122,7 +122,9 @@ class MainWindow(QtWidgets.QWidget, main_window.Ui_Form):
 					pass
 
 class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
-
+	"""
+	The class of the three subplot-main-panel-window
+	"""
 	def __init__(self, data, check, parent=None):
 		QtWidgets.QWidget.__init__(self, parent)
 		self.setupUi(self)
@@ -225,7 +227,9 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 
 
 	def clean_subplots(self):
-		"""Clears the subplots."""
+		"""
+		Clears the subplots
+		"""
 		for j in [self.ax1, self.ax2, self.ax3]:
 			j.lines = []
 			j.legend_ = None
@@ -244,7 +248,9 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.fig.canvas.draw()
 
 	def show_legend(self, event):
-		"""Shows legend for the plots"""
+		"""
+		Shows legend for the plots
+		"""
 		for pl in [self.ax1, self.ax2]:
 			if pl.lines:  # Change to non-lengths-comparision
 			#if len(pl.lines) > 0:
@@ -382,6 +388,9 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 
 	@staticmethod
 	def norm_XAS(data):
+		"""
+		Normalization of the XAS-Spectra according to the maxima of the all RIXS-intensities
+		"""
 		if np.max(data) != 0:
 			norm = data / np.max(data)
 		else:
@@ -389,6 +398,9 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		return norm
 
 	def norm_XES(self, data, mode):
+		"""
+		Normalization of the XES-Spectra according to the maxima of the all RIXS-intensities
+		"""
 		if np.max(data) != 0:
 			if mode == 0:
 				norm = data / np.max(data)
@@ -422,7 +434,9 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.press = event.x, event.y
 
 	def key_press(self, event):
-		"""Genereting new cmap-ranges"""
+		"""
+		Genereting new cmap-ranges
+		"""
 		if event.key == 'down':
 			self.index += 1
 		elif event.key == 'up':
@@ -464,14 +478,18 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		self.cbar.patch.figure.canvas.draw()
 
 	def on_release(self, event):
-		"""Reset all plotted data and cut-lines"""
+		"""
+		Reset all plotted data and cut-lines
+		"""
 		self.press = None
 		self.cont.set_norm(self.cbar.norm)
 		# self.contour.set_norm(self.cbar.norm)
 		self.cbar.patch.figure.canvas.draw()
 
 	def disconnect(self):
-		"""Disconnect all the stored connection ids"""
+		"""
+		Disconnect all the stored connection ids
+		"""
 		self.cbar.patch.figure.canvas.mpl_disconnect(self.cidpress)
 		self.cbar.patch.figure.canvas.mpl_disconnect(self.cidrelease)
 		self.cbar.patch.figure.canvas.mpl_disconnect(self.cidmotion)
