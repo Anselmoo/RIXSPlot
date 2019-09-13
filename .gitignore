@@ -6,3 +6,5 @@
 /dist/
 /build/
 /.eggs/
+/doc/__init__.py
+/doc/gaussian_interpolation.py
