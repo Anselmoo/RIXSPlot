@@ -7,37 +7,34 @@ from matplotlib.colors import Normalize
 
 
 class MyNormalize(Normalize):
-	"""
-    A Normalize class for imshow that allows different stretching functions
-    for astronomical images.
-    """
-
 	def __init__(self, stretch='Linear', exponent=5, vmid=None, vmin=None, vmax=None, clip=False):
 		"""
-        Initalize an APLpyNormalize instance.
+		MyNormalize-class is used for re-scalling the color-scheme
 
-        Optional Keyword Arguments:
-
-            *vmin*: [ None | float ]
-                Minimum pixel value to use for the scaling.
-
-            *vmax*: [ None | float ]
-                Maximum pixel value to use for the scaling.
-
-            *stretch*: [ 'linear' | 'log' | 'sqrt' | 'arcsinh' | 'arccosh' | 'power' | 'exp' ]
-                The stretch function to use (default is 'linear').
-
-            *vmid*: [ None | float ]
-                Mid-pixel value used for the log and arcsinh stretches. If
-                set to None, a default value is picked.
-
-            *exponent*: [ float ]
-                if self.stretch is set to 'power', this is the exponent to use.
-
-            *clip*: [ True | False ]
-                If clip is True and the given value falls outside the range,
-                the returned value will be 0 or 1, whichever is closer.
-        """
+		Parameters
+		----------
+		stretch: str
+			The stretch function to use (default is 'linear') for re-ordering the color-scaling.
+			The options are:
+				*'linear'
+				*'log'
+				*'sqrt'
+				*'arcsinh'
+				*'arccosh'
+				*'power'
+				*'exp'
+		exponent: float
+			exponent is set the 'power' of the exponent if used use.
+		vmin: float
+			Minimum pixel value to use for the scaling.
+		vmax: float
+			Maximum pixel value to use for the scaling.
+		vmid: float
+			Mid-pixel value used for the log and arcsinh stretches. If set to None, a default value is picked.
+		clip: bool
+			If clip is True and the given value falls outside the range,
+			the returned value will be 0 or 1, whichever is closer.
+		"""
 
 		if vmax < vmin:
 			raise Exception("vmax should be larger than vmin")
@@ -208,7 +205,6 @@ class MyNormalize(Normalize):
 
 		else:
 
-			raise Exception("Unknown stretch in APLpyNormalize: %s" %
-			                self.stretch)
+			raise Exception("Unknown stretch in APLpyNormalize: %s" % self.stretch)
 
 		return vmin + val * (vmax - vmin)
