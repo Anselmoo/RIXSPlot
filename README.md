@@ -21,6 +21,7 @@ For visualization of the RIXS spectra, the colormap reference of [`matplotlib`](
   * [PyQt5](https://riverbankcomputing.com/software/pyqt/intro)
   * [numpy](https://github.com/numpy/numpy)
   * [scipy](https://github.com/scipy/scipy)
+  * [matplotlib](https://github.com/matplotlib/matplotlib)
   
 Further requirements are the format of the RIXS-data. The ASCII-file should like this:
 
