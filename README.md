@@ -1,5 +1,6 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/anselmoo/rixsplot/badge)](https://www.codefactor.io/repository/github/anselmoo/rixsplot)
 [![codebeat badge](https://codebeat.co/badges/f871eac9-8f93-41b5-aa4a-194af53cdf00)](https://codebeat.co/projects/github-com-anselmoo-rixsplot-master)
+[![Mergify Status](https://img.shields.io/endpoint.svg?url=https://gh.mergify.io/badges/Anselmoo/RIXSPlot&style=flat)](https://github.com/Anselmoo/RIXSPlot/commits/master)
 [![DOI](https://zenodo.org/badge/207867243.svg)](https://zenodo.org/badge/latestdoi/207867243)
 [![GitHub](https://img.shields.io/github/license/Anselmoo/RIXSPlot)](https://github.com/Anselmoo/RIXSPlot/blob/master/LICENSE)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Anselmoo/RIXSPlot)](https://github.com/Anselmoo/RIXSPlot/releases)
