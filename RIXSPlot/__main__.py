@@ -170,29 +170,26 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 			self.ax3.set_ylabel('Energy Transfer (eV)')
 		# Setting up the RIXS-Map with optional contour-plot
 		if self.cont_t:
-			if self.cont_n != 0:
-				self.cont = self.ax3.contour(self.x, self.y, self.amp, self.cont_n, cmap=plt.get_cmap(self.style))
-			else:
+			if self.cont_n == 0:
 				self.cont = self.ax3.contour(self.x, self.y, self.amp, cmap=plt.get_cmap(self.style))
+			else:
+				self.cont = self.ax3.contour(self.x, self.y, self.amp, self.cont_n, cmap=plt.get_cmap(self.style))
 			self.cont.set_norm(
 				norm.MyNormalize(vmin=self.amp.min(), vmax=self.amp.max(), stretch=self.stretch, clip=True))
 		else:
 			extent = (min(self.x), max(self.x), min(self.y), max(self.y))
-			if self.cont_n != 0:
+			if self.cont_n == 0:
+				self.im = self.ax3.imshow(self.amp, extent=extent, cmap=plt.get_cmap(self.style), aspect='auto',
+				                          interpolation='bilinear', origin='lower')
+			else:
 				self.cont = self.ax3.contour(self.x, self.y, self.amp, self.cont_n, colors='w', aspect='auto',
 				                             linewidths=0.75, origin='lower')
 				self.im = self.ax3.imshow(self.amp, extent=extent, cmap=plt.get_cmap(self.style), aspect='auto',
 				                          interpolation='bilinear', origin='lower')
 				self.cont.set_norm(
 					norm.MyNormalize(vmin=self.amp.min(), vmax=self.amp.max(), stretch=self.stretch, clip=True))
-				self.im.set_norm(
-					norm.MyNormalize(vmin=self.amp.min(), vmax=self.amp.max(), stretch=self.stretch, clip=True))
-			else:
-				self.im = self.ax3.imshow(self.amp, extent=extent, cmap=plt.get_cmap(self.style), aspect='auto',
-				                          interpolation='bilinear', origin='lower')
-				self.im.set_norm(
-					norm.MyNormalize(vmin=self.amp.min(), vmax=self.amp.max(), stretch=self.stretch, clip=True))
-
+			self.im.set_norm(
+				norm.MyNormalize(vmin=self.amp.min(), vmax=self.amp.max(), stretch=self.stretch, clip=True))
 		# catch error if dividing by zero for normalization
 		# But not working
 		try:
@@ -292,7 +289,7 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 			np.savetxt(self.pathway + newpath + '/XAS_Cut_at_' + label + '.txt', CUT_XAS.T, delimiter='\t',
 			           newline='\n', header='En\tnorm.Int\tInt', fmt="%.4f")
 			os.chdir('..')
-		elif event.inaxes == self.ax2 and event.button == 1:
+		elif event.button == 1:
 			xpos = int(np.argmin(np.abs(event.xdata - self.x)))
 			if self.aver_x == 0:
 				int_xes = self.amp[:, xpos]
@@ -327,7 +324,7 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		"""
 		if event.inaxes != self.ax3:
 			return
-		elif event.inaxes == self.ax3:
+		else:
 			if event.button == 1:
 				xpos = int(np.argmin(np.abs(event.xdata - self.x)))
 				if self.aver_x == 0:
@@ -391,11 +388,7 @@ class RIXS(QtWidgets.QWidget, subwindow_RIXS.Ui_RIXS):
 		"""
 		Normalization of the XAS-Spectra according to the maxima of the all RIXS-intensities
 		"""
-		if np.max(data) != 0:
-			norm = data / np.max(data)
-		else:
-			norm = data
-		return norm
+		return data / np.max(data) if np.max(data) != 0 else data
 
 	def norm_XES(self, data, mode):
 		"""
