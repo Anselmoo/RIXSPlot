@@ -47,29 +47,19 @@ class MyNormalize(Normalize):
 		if stretch == 'Power' and np.equal(self.exponent, None):
 			raise Exception("For stretch=='Power', an exponent should be specified")
 
-		if np.equal(vmid, None):
-			if stretch == 'Log':
-				if vmin > 0:
-					self.midpoint = vmax / vmin
-				elif vmin <= 0:
+		if stretch == 'Log':
+			if np.equal(vmid, None):
+				if vmin <= 0:
 					vmin = 0.00001
-					self.midpoint = vmax / vmin
-				else:
-					raise Exception("When using a Log stretch, if vmin < 0, then vmid has to be specified")
-			elif stretch == 'Arcsinh' or stretch == 'Arccosh':
-				self.midpoint = -1. / 30.
+				self.midpoint = vmax / vmin
 			else:
-				self.midpoint = None
-		else:
-			if stretch == 'Log':
 				if vmin < vmid:
 					raise Exception("When using a Log stretch, vmin should be larger than vmid")
 				self.midpoint = (vmax - vmid) / (vmin - vmid)
-			elif stretch == 'Arcsinh' or stretch == 'Arccosh':
-				self.midpoint = (vmid - vmin) / (vmax - vmin)
-
-			else:
-				self.midpoint = None
+		elif stretch in ['Arcsinh', 'Arccosh']:
+			self.midpoint = -1. / 30.
+		else:
+			self.midpoint = None
 
 	def __call__(self, value, clip=None):
 
